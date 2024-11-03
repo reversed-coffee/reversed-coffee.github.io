@@ -1,0 +1,63 @@
+---
+import '../styles/global.scss';
+
+interface Props {
+	title: string;
+	description: string;
+	image?: string;
+    color?: string;
+}
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const {
+    title,
+    description,
+    image = '/blog-placeholder-1.jpg',
+    color = '#FFFFFF'
+} = Astro.props;
+---
+
+<!-- Theme Loading -->
+<script is:inline>
+    // Do not let Astro process this script. We need it to block rendering so there is not
+    // a flicker of the wrong theme.
+    const theme = localStorage.getItem('theme');
+    if (theme)
+        document.documentElement.setAttribute('data-theme', theme);
+</script>
+
+<!-- Global Metadata -->
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+<!-- Font preloads -->
+<link rel="preload" href="/fonts/Raleway.ttf" as="font" type="font/ttf" />
+<link rel="preload" href="/fonts/Lato.ttf" as="font" type="font/ttf" />
+<link rel="preload" href="/fonts/JetBrainsMono.ttf" as="font" type="font/ttf" />
+<link rel="preload" href="/fonts/Caveat.ttf" as="font" type="font/ttf" />
+
+<!-- Canonical URL -->
+<link rel="canonical" href={canonicalURL} />
+
+<!-- Primary Meta Tags -->
+<title>{title}</title>
+<meta name="title" content={title} />
+<meta name="description" content={description} />
+
+<!-- Open Graph -->
+<meta property="og:type" content="website" />
+<meta property="og:url" content={Astro.url} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={new URL(image, Astro.url)} />
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image" />
+<meta property="twitter:url" content={Astro.url} />
+<meta property="twitter:title" content={title} />
+<meta property="twitter:description" content={description} />
+<meta property="twitter:image" content={new URL(image, Astro.url)} />
+
+<!-- Discord -->
+<meta name="theme-color" content={color} />

@@ -1,0 +1,21 @@
+---
+import { getCollection } from "astro:content";
+import BlogPost from "@layouts/BlogPost.astro";
+
+export async function getStaticPaths() {
+    const posts = (await getCollection("posts")).filter(post => post.data.title !== undefined);
+
+    function slugify(title: string): string {
+        return title.toLowerCase().match(/[a-z0-9']+/g)!.join("-").replace("'", "");
+    }
+
+    return posts.map(post => ({
+        params: { slug: post.data.slug || slugify(post.data.title) },
+        props: { post }
+    }));
+}
+
+const { post } = Astro.props;
+---
+
+<BlogPost post={post} />

@@ -1,0 +1,3 @@
+User-Agent: *
+Allow: /
+Sitemap: https://reversed.coffee/sitemap-index.xml

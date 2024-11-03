@@ -1,0 +1,17 @@
+.v-ruler {
+    position: absolute;
+    top: 0;
+    left: 50vw;
+    width: 1px;
+    height: 100vh;
+    border-left: var(--foreground) 1px solid;
+}
+
+.h-ruler {
+    position: absolute;
+    top: 50vh;
+    left: 0;
+    width: 100vw;
+    height: 1px;
+    border-top: var(--foreground) 1px solid;
+}

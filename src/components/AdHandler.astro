@@ -1,0 +1,93 @@
+<style lang="scss" is:global>
+    @keyframes showAdFallback { 0% { opacity: 0; } 100% { opacity: 1; } }
+    #frame { margin: 0.5rem 0; }
+</style>
+
+<script>
+    // <div id="frame" style="width:100%; height:100%;">
+    //      <iframe data-aa='2362482' src='//acceptable.a-ads.com/2362482' style='border:0px; padding:0; width:100%; height:100%; overflow:hidden; background-color: transparent;'></iframe>
+    //      <a style="display: block; text-align: right; font-size: 12px;" id="preview-link" href="https://aads.com/campaigns/new/?source_id=2362482&source_type=ad_unit&partner=2362482">Advertise here</a>
+    // </div>
+
+    function createAdNode() {
+        const adHeight = "5.625rem";
+        const textSizePx = 12;
+
+        const adNode = document.createElement('div');
+        adNode.id = 'frame';
+        adNode.style.width = '100%';
+        adNode.style.height = `calc(${adHeight} + ${textSizePx * 2}px)`;
+        adNode.style.position = 'relative';
+
+        const iframe = document.createElement('iframe');
+        iframe.src = `//acceptable.a-ads.com/2362482`;
+        iframe.style.border = '0px';
+        iframe.style.padding = '0';
+        iframe.style.width = '100%';
+        iframe.style.height = adHeight;
+        iframe.style.overflow = 'hidden';
+        iframe.style.zIndex = '3';
+        iframe.style.backgroundColor = 'transparent';
+        iframe.style.position = 'absolute';
+        iframe.style.top = '0';
+
+        const underlay = document.createElement('div');
+        underlay.style.width = '100%';
+        underlay.style.height = adHeight;
+        underlay.style.backgroundColor = 'rgba(0, 0, 0, 0.1)';
+        underlay.style.zIndex = '1';
+        underlay.style.opacity = '0';
+        underlay.style.animation = 'showAdFallback 0.25s 2s forwards';
+        underlay.style.display = 'flex';
+        underlay.style.justifyContent = 'center';
+        underlay.style.alignItems = 'center';
+        underlay.style.textAlign = 'center';
+
+        const antiAdblock = document.createElement('p');
+        antiAdblock.style.color = '#C00000';
+        antiAdblock.style.fontSize = `${Math.floor(textSizePx * 1.4)}px`;
+        antiAdblock.style.padding = `${textSizePx}px`;
+        antiAdblock.textContent = "No invasive ads here! If you enjoy the content, consider disabling your ad-blocker."
+
+        underlay.appendChild(antiAdblock);
+        iframe.addEventListener('load', () => underlay.remove());
+
+        const link = document.createElement('a');
+        link.style.position = 'absolute';
+        link.style.right = '0';
+        link.style.bottom = '0';
+        link.style.fontSize = `${textSizePx}px`;
+        link.id = 'preview-link';
+        link.href = 'https://aads.com/campaigns/new/?source_id=2362482&source_type=ad_unit&partner=2362482';
+        link.textContent = 'Advertise here';
+
+        adNode.appendChild(iframe);
+        adNode.appendChild(underlay);
+        adNode.appendChild(link);
+
+        return adNode;
+    }
+
+    /*
+    // Media queries to determine what size ad fits the screen best
+    const adSizes = [
+        { width: 970, height: 90 },
+        { width: 728, height: 90 },
+        { width: 468, height: 60 },
+        { width: 240, height: 400 }, // sorry bub, you're getting more ads since u use mobile lol
+        { width: 300, height: 250 },
+        { width: 320, height: 50 },
+        { width: 120, height: 60 }
+    ];
+
+    // Detect best fitting advertisement size
+    const szMain = document.querySelector('main')!.getBoundingClientRect();
+    const adSize = adSizes.find(size => size.width <= szMain.width) || adSizes[adSizes.length - 1];
+    */
+
+    // Inject at points of interest
+    for (const poi of document.querySelectorAll('.ad-frame')) {
+        const adNode = createAdNode();
+        poi.replaceWith(adNode);
+    }
+</script>

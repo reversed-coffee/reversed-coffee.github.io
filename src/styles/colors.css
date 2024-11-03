@@ -1,0 +1,22 @@
+:root {
+    --background: #F5F5F5;
+    --alt-background: #D5D5D5;
+    --foreground: #20201D;
+    --alt-foreground: #40403B;
+    --accent: #2c82bb;
+    --alt-accent: #56B3BF;
+}
+
+:root[data-theme="dark"] {
+    --background: #20201D;
+    --alt-background: #40403B;
+    --foreground: #F5F5F5;
+    --alt-foreground: #D5D5D5;
+    --accent: #66C3FF;
+    --alt-accent: #56B3BF;
+}
+
+body.theme-transition, body.theme-transition * {
+    /* this breaks some animations - we can use keyframes for those though which is literally only the switcher */
+    transition: background-color 0.5s, color 0.5s !important;
+}
