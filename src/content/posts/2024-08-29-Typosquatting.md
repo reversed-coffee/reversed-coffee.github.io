@@ -7,7 +7,7 @@ monetized: true
 ---
 
 This article was inspired by a project that I presented to my peers and the public at my technical school. The project,
-known as "Hack House" is an annual event where students are given a few weeks to create a presentation on public
+known as "Hack House," is an annual event where students are given a few weeks to create a presentation on public
 cybersecurity awareness. The goal of the project is to teach you how to protect yourself from typosquatting attacks.
 
 The main reason I wanted to write this article is to show how much of a threat typosquatting is. Many people are unaware
@@ -48,16 +48,16 @@ typosquatting to trick you.
 Many people are arrogant or unaware of the risks of typosquatting. To demonstrate the risks, I decided to create a
 parody of "Chase Bank" called "Dash Bank." I registered the domain `dashbank.us` and created a website that had its own
 little neat user interface. It featured a login page that asked for a username, password, and answers to some absurd
-security questions. The website was designed to look like a professional banking website to make demonstration
+security questions. The website was designed to look like a professional banking website to make the demonstration
 effective.
 
 Legally, I cannot typosquat a real bank's domain name, nor is it ethical to do so. I created a parody of a bank that I
 could typosquat myself so I could demonstrate the risks of typosquatting without breaking any laws or ethical standards.
-A notable law that I would have broken is the Anti-Cybersquatting Consumer Protection Act (ACPA), which prohibits
-registering domain names that are similar to trademarks with bad-faith intent to profit from them. In my case, there is
-no bad-faith intent, but one could still argue that since I'm still receiving credentials (even though they're fake),
-I could collect them and use them in bad faith. This is why I had to go with creating a parody, because it's an ethical
-and legal way to demonstrate an attack like typosquatting.
+A notable law I would have broken is the Anti-Cybersquatting Consumer Protection Act (ACPA), which prohibits registering
+domain names similar to trademarks with bad-faith intent to profit from them. In my case, there is no bad-faith intent,
+but one could still argue that since I'm still receiving credentials (even though they're fake), I could collect them
+and use them in bad faith. This is why I had to go with creating a parody, because it's an ethical and legal way to
+demonstrate an attack like typosquatting.
 
 Let's consider you're in the world of parodies now. What's considered a parody in this world is actually a real thing,
 not a parody at all. The website `dashbank.us` is owned by an official bank called "Dash Financial." This is a banking
@@ -83,14 +83,14 @@ is completely gone. No information is stored on the server.
 ## Common Misconceptions About Typosquatting
 
 There are many misconceptions about typosquatting that can lead to people falling victim to these attacks. Some of them
-are broad, but there are some speccific misconceptions that I'd like to address as well. Hopefully, by clarifying how a
-typosquatting attack works, you can get a better understanding of what can and cannot protect you from these attacks.
+are broad, but there are some specific misconceptions that I'd like to address as well. Hopefully, by clarifying how
+typosquatting attacks work, you’ll better understand what does and doesn’t protect you from these attacks.
 
 ### "My Browser Will Warn Me"
 
 You might be thinking, "My browser will protect me from these types of attacks." While it's true that modern browsers
 have built-in security features to protect users from malicious websites, they're not foolproof. Google's Safe Browsing
-feature, for example, will warn you if you're about to visit a known phishing site. However the keyword here is "known."
+feature, for example, will warn you if you're about to visit a known phishing site. However, the keyword here is "known."
 
 This applies especially in spear-phishing attacks, where the attacker targets a specific individual or organization. If
 an attacker registered a brand new domain that looks similar to your organization's domain, it's unlikely that Google's
@@ -135,7 +135,7 @@ under these two criteria:
 
 Wait, did I just say the website is secure? Yes, the website is secure in the scope of confidentiality. In this case,
 though, typosquatting is an attack on integrity, not confidentiality. Hold on, what's the difference between integrity
-and confidentiality? Integrity asssures that the website you are visiting is the website you intended to visit. In this
+and confidentiality? Integrity assures that the website you are visiting is the website you intended to visit. In this
 case, it's not even close.
 
 So, yes, the typosquatted website is indeed secure. The website is secure in the scope of confidentiality. HTTPS ensures
@@ -157,7 +157,7 @@ from this attack. I believe attacking VPNs is a bit out of the scope of this art
 of why VPNs won't realistically protect you from typosquatting.
 
 These companies (especially NordVPN and ExpressVPN) make extremely vague claims about how their VPNs protect you from
-cyber attacks. let's take NordVPN for example. This is straight from their front page:
+cyber attacks. Let's take NordVPN for example. This is straight from their front page:
 
 <div class="md-center md-separate">
     <img src="/images/74df918a-075c-4cb7-93d5-59c4508660ed.webp" alt="NordVPN Front Page" width="70%">
