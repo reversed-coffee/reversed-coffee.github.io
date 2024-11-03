@@ -1,6 +1,6 @@
 <style lang="scss" is:global>
     @keyframes showAdFallback { 0% { opacity: 0; } 100% { opacity: 1; } }
-    #frame { margin: 0.5rem 0; }
+    div#frame { margin: 0.5rem 0; }
 </style>
 
 <script>
@@ -9,28 +9,25 @@
     //      <a style="display: block; text-align: right; font-size: 12px;" id="preview-link" href="https://aads.com/campaigns/new/?source_id=2362649&source_type=ad_unit&partner=2362649">Advertise here</a>
     // </div>
 
-    function createAdNode() {
-        const adHeight = "5.625rem";
+    function addAntiAdblock(curNode: HTMLDivElement) {
+        const iframe = curNode.querySelector('iframe');
+        if (!iframe) return;
+
         const textSizePx = 12;
+        const adHeight = '85px';
 
-        const adNode = document.createElement('div');
-        adNode.id = 'frame';
-        adNode.style.width = '100%';
-        adNode.style.height = `calc(${adHeight} + ${textSizePx * 2}px)`;
-        adNode.style.position = 'relative';
+        // Fit to parent
+        curNode.style.width = '100%';
+        curNode.style.height = `calc(${adHeight} + ${textSizePx * 2}px)`;
+        curNode.style.position = 'relative';
 
-        const iframe = document.createElement('iframe');
-        iframe.src = `//acceptable.a-ads.com/2362649`;
-        iframe.style.border = '0px';
-        iframe.style.padding = '0';
-        iframe.style.width = '100%';
+        // Make this overlay the underlay
         iframe.style.height = adHeight;
-        iframe.style.overflow = 'hidden';
         iframe.style.zIndex = '3';
-        iframe.style.backgroundColor = 'transparent';
         iframe.style.position = 'absolute';
         iframe.style.top = '0';
 
+        // Create underlay that shows if ad is blocked
         const underlay = document.createElement('div');
         underlay.style.width = '100%';
         underlay.style.height = adHeight;
@@ -43,51 +40,21 @@
         underlay.style.alignItems = 'center';
         underlay.style.textAlign = 'center';
 
+        // Create anti-adblock message
         const antiAdblock = document.createElement('p');
         antiAdblock.style.color = '#C00000';
         antiAdblock.style.fontSize = `${Math.floor(textSizePx * 1.4)}px`;
         antiAdblock.style.padding = `${textSizePx}px`;
         antiAdblock.textContent = "No invasive ads here! If you enjoy the content, consider disabling your ad-blocker."
 
+        // Create link to underlay
         underlay.appendChild(antiAdblock);
-        iframe.addEventListener('load', () => underlay.remove());
 
-        const link = document.createElement('a');
-        link.style.position = 'absolute';
-        link.style.right = '0';
-        link.style.bottom = '0';
-        link.style.fontSize = `${textSizePx}px`;
-        link.id = 'preview-link';
-        link.href = 'https://aads.com/campaigns/new/?source_id=2362649&source_type=ad_unit&partner=2362649';
-        link.textContent = 'Advertise here';
-
-        adNode.appendChild(iframe);
-        adNode.appendChild(underlay);
-        adNode.appendChild(link);
-
-        return adNode;
+        // Insert underlay after the iframe, but before the link
+        iframe.insertAdjacentElement('afterend', underlay);
     }
 
-    /*
-    // Media queries to determine what size ad fits the screen best
-    const adSizes = [
-        { width: 970, height: 90 },
-        { width: 728, height: 90 },
-        { width: 468, height: 60 },
-        { width: 240, height: 400 }, // sorry bub, you're getting more ads since u use mobile lol
-        { width: 300, height: 250 },
-        { width: 320, height: 50 },
-        { width: 120, height: 60 }
-    ];
-
-    // Detect best fitting advertisement size
-    const szMain = document.querySelector('main')!.getBoundingClientRect();
-    const adSize = adSizes.find(size => size.width <= szMain.width) || adSizes[adSizes.length - 1];
-    */
-
-    // Inject at points of interest
-    for (const poi of document.querySelectorAll('.ad-frame')) {
-        const adNode = createAdNode();
-        poi.replaceWith(adNode);
-    }
+    // Add at points of interest (boo womp, a-ads wants me to retain 1:1 with their crap)
+    for (const poi of document.querySelectorAll('div#frame'))
+        addAntiAdblock(poi as HTMLDivElement);
 </script>

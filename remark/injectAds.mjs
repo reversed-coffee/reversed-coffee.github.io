@@ -2,7 +2,7 @@
 // It won't be anything crazy, just a simple banner ad that we won't stop if you
 // block. We will tell you to please consider supporting the site, though.
 
-const bannerAd = `<div class="ad-frame"></div>`;
+const bannerAd = `<div id="frame" style="width: 100%;"><iframe data-aa='2362649' src='//acceptable.a-ads.com/2362649' style='border:0px; padding:0; width:100%; height:100%; overflow:hidden; background-color: transparent;'></iframe><a style="display: block; text-align: right; font-size: 12px" id="frame-link" href="https://aads.com/campaigns/new/?source_id=2362649&source_type=ad_unit&partner=2362649">Advertise here</a></div>`;
 const injectAfter = 6; // Number of sections after which to inject the ad
 
 export function remarkInjectAds() {
