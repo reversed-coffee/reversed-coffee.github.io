@@ -1,5 +1,5 @@
 ---
-date: 2024-08-29
+date: 2024-10-29
 title: "Typosquatting: Danger Hidden in Plain Sight"
 desc: "Dive into the world of cybercrime and learn how to protect yourself from typosquatting attacks."
 tags: [ "cybersecurity", "typosquatting", "phishing", "hacking" ]
