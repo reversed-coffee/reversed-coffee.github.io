@@ -17,13 +17,14 @@ const {
 } = Astro.props;
 ---
 
-<!-- Theme Loading -->
+<!--
+    Theme Loading.
+    Do not let Astro handle this -- we need to block rendering until the theme is loaded!
+    This is one of the downsides of CSR and not SSR.
+-->
 <script is:inline>
-    // Do not let Astro process this script. We need it to block rendering so there is not
-    // a flicker of the wrong theme.
     const theme = localStorage.getItem('theme');
-    if (theme)
-        document.documentElement.setAttribute('data-theme', theme);
+    if (theme) document.documentElement.setAttribute('data-theme', theme);
 </script>
 
 <!-- Global Metadata -->
