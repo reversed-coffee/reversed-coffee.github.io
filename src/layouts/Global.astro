@@ -1,0 +1,43 @@
+---
+import { SITE_TITLE } from '@consts';
+
+import Metadata from '@components/Metadata.astro';
+import Header from '@components/Header.astro';
+import Footer from '@components/Footer.astro';
+
+interface Props {
+    title: string;
+    desc?: string;
+}
+
+const { title, desc } = Astro.props;
+
+import '../styles/global.scss';
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+        {/*
+            Do not let Astro handle this! We need to block rendering until the theme is loaded. That's just a downside
+            of not having server-side rendering. I don't want SSR though because it means more servers to mess with.
+        */}
+        <script is:inline>
+            const theme = localStorage.getItem('theme');
+            if (theme) document.documentElement.setAttribute('data-theme', theme);
+        </script>
+		<Metadata
+            title={`${title} - ${SITE_TITLE}`}
+            desc={desc || `'${title}' on ${SITE_TITLE}.`}
+        />
+        <script is:inline defer data-domain="reversed.coffee" src="https://metrics.reversed.coffee/js/script.js"></script>
+	</head>
+	<body>
+		<Header />
+		<main>
+            <slot />
+		</main>
+		<Footer />
+        <slot name="after-render" />
+	</body>
+</html>
