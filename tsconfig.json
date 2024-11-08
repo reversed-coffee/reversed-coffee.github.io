@@ -10,7 +10,8 @@
         "@pages/*": ["src/pages/*"],
         "@styles/*": ["src/styles/*"],
         "@static/*": ["static/*"],
-        "@models/*": ["src/models/*"]
+        "@models/*": ["src/models/*"],
+        "@consts": ["src/consts.ts"],
     }
   }
 }
