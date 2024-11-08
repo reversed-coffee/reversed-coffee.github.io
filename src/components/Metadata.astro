@@ -18,41 +18,41 @@ const {
 } = Astro.props;
 ---
 
-<!-- Global Metadata -->
+{/* Primary metadata */}
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
-<!-- Font preloads -->
+{/* Preload fonts */}
 <link rel="preload" href="/fonts/Raleway.ttf" as="font" type="font/ttf" />
 <link rel="preload" href="/fonts/Lato.ttf" as="font" type="font/ttf" />
 <link rel="preload" href="/fonts/JetBrainsMono.ttf" as="font" type="font/ttf" />
 <link rel="preload" href="/fonts/Caveat.ttf" as="font" type="font/ttf" />
 
-<!-- Canonical URL -->
+{/* Canonical URL */}
 <link rel="canonical" href={canonicalURL} />
 
-<!-- Primary Meta Tags -->
+{/* Metadata for SEO and browser tabs */}
 <title>{title}</title>
 <meta name="title" content={title} />
 <meta name="description" content={desc} />
 
-<!-- Open Graph -->
+{/* OpenGraph support (for Discord, LinkedIn, Facebook, etc.) */}
 <meta property="og:type" content="website" />
 <meta property="og:url" content={Astro.url} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={desc} />
 <meta property="og:image" content={new URL(image, Astro.url)} />
 
-<!-- Twitter -->
+{/* Twitter support (which is now considered X) */}
 <meta property="twitter:card" content="summary_large_image" />
 <meta property="twitter:url" content={Astro.url} />
 <meta property="twitter:title" content={title} />
 <meta property="twitter:description" content={desc} />
 <meta property="twitter:image" content={new URL(image, Astro.url)} />
 
-<!-- Discord -->
+{/* Base accent color for Discord and other apps */}
 <meta name="theme-color" content={color} />
 
-<!-- Alternative onion link -->
+{/* Alternative Onion link for Tor users */}
 <meta http-equiv="onion-location" content={ONION_LINK} />
