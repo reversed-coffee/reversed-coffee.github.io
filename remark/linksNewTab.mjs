@@ -10,8 +10,8 @@ export function remarkLinksNewTab() {
                 node.data = node.data || {};
                 node.data.hProperties = node.data.hProperties || {};
 
-                // Add `target="_blank"` to open the link in a new tab
-                node.data.hProperties.target = '_blank';
+                // Add `target="noopener noreferrer"` to open the link in a new tab
+                node.data.hProperties.target = 'noopener noreferrer';
             }
 
             // Recursively visit child nodes if they exist

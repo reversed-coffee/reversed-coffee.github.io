@@ -1,49 +1,27 @@
 ---
-import { getCollection } from "astro:content";
+import Layout from '@layouts/Global.astro';
 
-import Metadata from '../components/Metadata.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
+import { slugify, getPosts } from "@utils";
 
-const posts = (await getCollection("posts")).filter(post => post.data.title !== undefined);
-posts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
-
-function slugify(title: string): string {
-    return title.toLowerCase().match(/[a-z0-9']+/g)!.join("-").replace("'", "");
-}
-
-const latestPosts = posts.slice(0, 5);
+const allPosts = await getPosts();
+const latestPosts = allPosts.slice(0, 5);
 ---
 
-<!doctype html>
-<html lang="en">
-	<head>
-		<Metadata title="Blog - nick's brew" description="A collection of palatable blog posts related to tech and cybersecurity" />
-	</head>
-	<body>
-		<Header />
-		<main>
-			<div class="center top">
-                <h3>Latest Posts</h3>
+<Layout title="Blog" desc="A collection of palatable blog posts related to tech and cybersecurity">
+    <div class="flex-center">
+        <h3>Latest Posts</h3>
+    </div>
+    <div class="posts" id="latest-posts">
+        {latestPosts.map(post => (
+            <div class="post">
+                <a href={`/blog/${post.data.slug || slugify(post.data.title)}/`}>{post.data.title}</a>
+                <span class="date">{post.data.date.toLocaleString("en-US", { year: 'numeric', month: 'short', day: 'numeric' })}</span>
             </div>
-            <div class="posts" id="latest-posts">
-                {latestPosts.map(post => (
-                    <div class="post">
-                        <a href={`/blog/${post.data.slug || slugify(post.data.title)}`}>{post.data.title}</a>
-                        <span class="date">{post.data.date.toLocaleString("en-US", { year: 'numeric', month: 'short', day: 'numeric' })}</span>
-                    </div>
-                ))}
-            </div>
-		</main>
-		<Footer fixed />
-	</body>
-</html>
+        ))}
+    </div>
+</Layout>
 
 <style lang="scss">
-    .top {
-        margin: 1rem 0;
-    }
-
     .posts {
         display: flex;
         flex-direction: column;
@@ -52,6 +30,7 @@ const latestPosts = posts.slice(0, 5);
 
     .date {
         min-width: 120px;
+        text-align: right;
     }
 
     @media screen and (max-width: 550px) {
@@ -67,6 +46,7 @@ const latestPosts = posts.slice(0, 5);
 
         .date {
             flex-basis: 100%;
+            text-align: left;
         }
     }
 
