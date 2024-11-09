@@ -11,7 +11,7 @@ import { Icon } from "astro-icon/components"
         <h3>nick's brew</h3>
         <h3 class="hamburger">&#9776;</h3>
         <div class="nav-content">
-            <h3><a href="/">home</a></h3>
+            <!--<h3><a href="/">home</a></h3>-->
             <h3><a href="/blog">blog</a></h3>
             <h3><a href="/projects">projects</a></h3>
         </div>
@@ -20,45 +20,49 @@ import { Icon } from "astro-icon/components"
 </header>
 
 <script>
-    const themeToggle = document.querySelector('#toggle-theme') as HTMLInputElement;
+    (() => {
+        const themeToggle = document.querySelector('#toggle-theme') as HTMLInputElement;
+        if (!themeToggle) return;
 
-    const themeMap = {
-        dark: 'svg[data-icon="moon"]',
-        light: 'svg[data-icon="sun"]'
-    };
+        const themeMap = {
+            dark: 'svg[data-icon="moon"]',
+            light: 'svg[data-icon="sun"]'
+        };
 
-    // Set the theme based on the user's preference
-    const theme = localStorage.getItem('theme') || 'light';
-    document.documentElement.setAttribute('data-theme', theme);
+        // Set the theme based on the user's preference
+        const theme = localStorage.getItem('theme') || 'light';
+        themeToggle.querySelector(themeMap[theme])!.classList.remove('hidden');
 
-    // Set the icon based on the theme
-    themeToggle.querySelector(themeMap[theme])!.classList.remove('hidden');
+        // Toggle the theme
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme')!;
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
 
-    // Toggle the theme
-    themeToggle.addEventListener('click', () => {
-        const currentTheme = document.documentElement.getAttribute('data-theme')!;
-        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            // Set setting locally
+            localStorage.setItem('theme', newTheme);
 
-        // Set setting locally
-        localStorage.setItem('theme', newTheme);
+            // Update the theme
+            document.body.classList.add('theme-transition');
+            document.documentElement.setAttribute('data-theme', newTheme);
 
-        // Update the theme
-        document.body.classList.add('theme-transition');
-        document.documentElement.setAttribute('data-theme', newTheme);
+            setTimeout(() => document.body.classList.remove('theme-transition'), 500);
 
-        setTimeout(() => document.body.classList.remove('theme-transition'), 500);
+            // Update the icon
+            themeToggle.querySelector(themeMap[currentTheme]).classList.add('hidden');
+            themeToggle.querySelector(themeMap[newTheme])!.classList.remove('hidden');
+        });
 
-        // Update the icon
-        themeToggle.querySelector(themeMap[currentTheme]).classList.add('hidden');
-        themeToggle.querySelector(themeMap[newTheme])!.classList.remove('hidden');
-    });
+        // Remove the nohover class on first hover
+        // Prevents playing the animation on page load
+        themeToggle.addEventListener('mouseleave', function removeNohover() {
+            themeToggle.removeEventListener('mouseleave', removeNohover);
+            themeToggle.classList.remove('nohover');
+        });
 
-    // Remove the nohover class on first hover
-    // Prevents playing the animation on page load
-    themeToggle.addEventListener('mouseleave', function removeNohover() {
-        themeToggle.removeEventListener('mouseleave', removeNohover);
-        themeToggle.classList.remove('nohover');
-    });
+        document.querySelector('.hamburger')!.addEventListener('click', () => {
+            document.querySelector('.nav-content')!.classList.toggle('active');
+        });
+    })();
 </script>
 
 <style lang="scss">
@@ -98,10 +102,7 @@ import { Icon } from "astro-icon/components"
             vertical-align: middle;
         }
     }
-</style>
 
-
-<style lang="scss">
     nav {
         display: flex;
         flex-wrap: wrap;
@@ -163,9 +164,3 @@ import { Icon } from "astro-icon/components"
         }
     }
 </style>
-
-<script>
-    document.querySelector('.hamburger')!.addEventListener('click', () => {
-        document.querySelector('.nav-content')!.classList.toggle('active');
-    });
-</script>

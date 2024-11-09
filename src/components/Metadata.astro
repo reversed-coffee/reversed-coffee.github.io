@@ -1,4 +1,5 @@
 ---
+import fs from "fs/promises";
 import { ONION_LINK } from '@consts';
 
 interface Props {
@@ -24,10 +25,10 @@ const {
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
 {/* Preload fonts */}
-<link rel="preload" href="/fonts/Raleway.ttf" as="font" type="font/ttf" />
-<link rel="preload" href="/fonts/Lato.ttf" as="font" type="font/ttf" />
-<link rel="preload" href="/fonts/JetBrainsMono.ttf" as="font" type="font/ttf" />
-<link rel="preload" href="/fonts/Caveat.ttf" as="font" type="font/ttf" />
+<link rel="preload" href="/fonts/Raleway.ttf" as="font" crossorigin="anonymous" />
+<link rel="preload" href="/fonts/Lato.ttf" as="font" crossorigin="anonymous" />
+<link rel="preload" href="/fonts/JetBrainsMono.ttf" as="font" crossorigin="anonymous" />
+<link rel="preload" href="/fonts/Caveat.ttf" as="font" crossorigin="anonymous" />
 
 {/* Canonical URL */}
 <link rel="canonical" href={canonicalURL} />

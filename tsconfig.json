@@ -12,6 +12,7 @@
         "@static/*": ["static/*"],
         "@models/*": ["src/models/*"],
         "@consts": ["src/consts.ts"],
+        "@utils": ["src/utils.ts"],
     }
   }
 }

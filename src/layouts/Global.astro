@@ -8,36 +8,55 @@ import Footer from '@components/Footer.astro';
 interface Props {
     title: string;
     desc?: string;
+    class?: string;
+    structured?: boolean;
+    forceTheme?: string;
 }
 
-const { title, desc } = Astro.props;
+const { title, desc, class: mainClass, structured = true, forceTheme } = Astro.props;
 
-import '../styles/global.scss';
+const rootAttributes = {
+    'data-theme': forceTheme
+};
+
+import "@styles/fonts.css";
+import '@styles/global.scss';
 ---
 
 <!doctype html>
-<html lang="en">
+<html { ...rootAttributes } lang="en">
 	<head>
         {/*
             Do not let Astro handle this! We need to block rendering until the theme is loaded. That's just a downside
             of not having server-side rendering. I don't want SSR though because it means more servers to mess with.
+            Also, we're loading from the preferred system theme on first visits.
         */}
-        <script is:inline>
-            const theme = localStorage.getItem('theme');
-            if (theme) document.documentElement.setAttribute('data-theme', theme);
-        </script>
+        {!forceTheme && (
+            <script is:inline>
+                let theme = localStorage.getItem('theme');
+                if (!theme) {
+                    theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+                    localStorage.setItem('theme', theme);
+                }
+                document.documentElement.dataset.theme = theme;
+            </script>
+        )}
+
 		<Metadata
             title={`${title} - ${SITE_TITLE}`}
             desc={desc || `'${title}' on ${SITE_TITLE}.`}
         />
-        <script is:inline defer data-domain="reversed.coffee" src="https://metrics.reversed.coffee/js/script.js"></script>
+        <slot name="before-render" />
+
+        {/* Pretty sure how this works is that Tor users won't get tracked at all by this since the host is different. */}
+        <script is:inline defer data-domain="reversed.coffee" src="https://metrics.reversed.coffee/js/script.outbound-links.js"></script>
 	</head>
 	<body>
-		<Header />
-		<main>
+        {structured && <Header />}
+		<main class:list={mainClass}>
             <slot />
 		</main>
-		<Footer />
+        {structured && <Footer />}
         <slot name="after-render" />
 	</body>
 </html>

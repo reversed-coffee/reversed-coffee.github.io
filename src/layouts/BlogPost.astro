@@ -1,21 +1,12 @@
 ---
 import Layout from '@layouts/Global.astro';
-
-import Metadata from '@components/Metadata.astro';
-import Header from '@components/Header.astro';
-import Footer from '@components/Footer.astro';
-
 import AdHandler from '@components/AdHandler.astro';
-import "@styles/blog.scss";
 
 const { post } = Astro.props;
 const { data: meta } = post;
 const { Content, remarkPluginFrontmatter } = await post.render();
 
-const structuredData = {
-    "@context": "https://schema.org",
-    "@type": "BlogPosting",
-}
+import "@styles/blog.scss";
 ---
 
 <Layout title={meta.title} desc={meta.desc}>
@@ -25,9 +16,11 @@ const structuredData = {
         <p>{remarkPluginFrontmatter.readTime}</p>
     </div>
     <h1>{meta.title}</h1>
-    <div class="tags">
-        {meta.tags?.map(tag => <span>{tag}</span>)}
-    </div>
+    {meta.tags && (
+        <div class="tags">
+            {meta.tags.map((tag: string) => <span>{tag}</span>)}
+        </div>
+    )}
     <hr>
     <article>
         <Content />

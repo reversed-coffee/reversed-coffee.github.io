@@ -1,0 +1,105 @@
+---
+import Layout from '@layouts/Global.astro';
+
+import { Icon } from 'astro-icon/components';
+---
+
+<Layout title="Links" desc="Connect with me!" class="flex-center flex-grow" structured={false} forceTheme='dark'>
+    <h1 class="t-cursive t-gradient">Nicholas Hardenburgh</h1>
+    <h2 class="t-cursive ">got root? check out my stuff</h2>
+    <div class="socials">
+        <a href="https://www.linkedin.com/in/nicholas-hardenburgh/" target="noopener noreferrer">
+            <Icon name="linkedin" size="2rem" />
+        </a>
+        <a href="mailto:nick@reversed.coffee" target="noopener noreferrer">
+            <Icon name="at-sign" size="2rem" />
+        </a>
+        <a href="https://github.com/reversed-coffee/" target="noopener noreferrer">
+            <Icon name="github" size="2rem" />
+        </a>
+    </div>
+    <div class="discover">
+        <a href="/projects" target="noopener noreferrer">
+            <Icon name="seeding" size="2rem" />
+        </a>
+    </div>
+    <div class="back-grid">
+</Layout>
+
+<script>
+    // Ensure seamless page transitions by applying a default theme for first-time visitors.
+    // Prevents a sudden light theme flash when the user prefers a dark interface.
+    const theme = localStorage.getItem('theme');
+    if (!theme) localStorage.setItem('theme', 'dark');
+</script>
+
+<style lang="scss">
+    h1 {
+        font-weight: bold;
+        font-size: 4rem;
+    }
+
+    h2 {
+        font-size: 2rem;
+        color: var(--accent);
+    }
+
+    svg {
+        &:hover {
+            transform: scale(1.2);
+        }
+        transition: transform 0.2s;
+    }
+
+    .back-grid {
+        $squareSize: 32px;
+        position: absolute;
+        width: 100vw;
+        height: 100vh;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        background-image: linear-gradient(to right, var(--foreground) 2px, transparent 2px), linear-gradient(to bottom, var(--foreground) 2px, transparent 2px);
+        background-size: $squareSize $squareSize;
+        opacity: 0.05;
+        z-index: -100;
+    }
+
+    .socials {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        margin-top: 1rem;
+        margin-bottom: 3rem;
+
+        a {
+            color: var(--alt-foreground);
+            &:hover {
+                color: var(--foreground);
+            }
+        }
+    }
+
+    @keyframes pulse {
+        0% {
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.1);
+        }
+        100% {
+            transform: scale(1);
+        }
+    }
+
+    .discover {
+        svg {
+            color: #7DBE4A;
+            animation: pulse 2s infinite;
+
+            &:hover {
+                color: #5F9E3F;
+            }
+        }
+    }
+</style>

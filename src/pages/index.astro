@@ -1,82 +1,11 @@
 ---
-import Metadata from '../components/Metadata.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
+import Layout from '@layouts/Global.astro';
+
 import { Icon } from 'astro-icon/components';
 ---
 
-<!doctype html>
-<html lang="en">
-	<head>
-		<Metadata title="nick's brew" desc="Nicholas Hardenburgh's personal website" />
-	</head>
-	<body>
-		<Header />
-		<main>
-			<h1>
-                <span class="gradient">Nicholas Hardenburgh</span>
-            </h1>
-            <h2>got root? check out my stuff</h2>
-            <div class="socials">
-                <a href="https://www.linkedin.com/in/nicholas-hardenburgh">
-                    <Icon name="linkedin" size="2rem" />
-                </a>
-                <a href="mailto:nick@reversed.coffee">
-                    <Icon name="mail" size="2rem" />
-                </a>
-                <a href="/blog">
-                    <Icon name="seeding" size="2rem" />
-                </a>
-                <a href="https://github.com/reversed-coffee">
-                    <Icon name="github" size="2rem" />
-                </a>
-            </div>
-		</main>
-		<Footer fixed noIcons />
-	</body>
-</html>
-
-<style lang="scss">
-    html {
-        // If for whatever reason it shows a scrollbar, which you shouldn't see anyways
-        overflow: hidden;
-    }
-
-    main {
-        display: flex;
-        height: calc(100vh - 15rem); // idk i give up lets just make it work...
-        justify-content: center;
-        text-align: center;
-        align-items: center;
-        flex-direction: column;
-        overflow-wrap: break-word;
-    }
-
-    h1, h2 {
-        font-family: 'Caveat', cursive;
-    }
-
-    h1 {
-        font-weight: bold;
-        font-size: 4rem;
-    }
-
-    h2 {
-        font-size: 2rem;
-        color: var(--accent);
-    }
-
-    .socials {
-        display: flex;
-        gap: 1rem;
-        justify-content: center;
-        margin: 0.5rem 0;
-
-        a {
-            color: var(--alt-foreground);
-            &:hover {
-                color: var(--foreground);
-            }
-        }
-    }
-</style>
+<Layout title="nick's brew" desc="Homepage" class="flex-center flex-grow">
+    <p>Hey! This is my small website. I'm a cybersecurity enthusiast and coffee lover.</p>
+    <br>
+    <a href="/hello">learn about me</a>
+</Layout>

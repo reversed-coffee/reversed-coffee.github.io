@@ -16,7 +16,12 @@ import icon from 'astro-icon';
 // Configuration for Astro.
 export default defineConfig({
 	site: CLEAR_LINK,
-	integrations: [mdx(), sitemap(), icon({ iconDir: './static/icons' })],
+    trailingSlash: "ignore",
+	integrations: [
+        mdx(),
+        sitemap(),
+        icon({ iconDir: './static/icons' }),
+    ],
     markdown: {
         // @ts-ignore - I don't care about type checking since it's going to JS.
         remarkPlugins: [remarkReadTime, remarkInjectAds, remarkLinksNewTab],
